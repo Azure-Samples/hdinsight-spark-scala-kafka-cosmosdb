@@ -71,6 +71,8 @@ This example uses a Scala application in a Jupyter notebook. The code in the not
 
 __NOTE__: The notebooks contain information and links on how to obtain this information.
 
+__WARNING__: HDInsight is charged hourly. To prevent unnecessary costs, delete the cluster once you are finished with this example.
+
 ## To run this example
 
 To use the example Jupyter notebooks, you must upload them to the Jupyter Notebook server on the Spark cluster. Use the following steps to upload the notebooks:
