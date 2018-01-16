@@ -12,14 +12,6 @@ This example requires Kafka and Spark on HDInsight 3.6 in the same Azure Virtual
 
 __NOTE__: Apache Kafka and Spark are available as two different cluster types. HDInsight cluster types are tuned for the performance of a specific technology; in this case, Kafka and Spark. To use both together, you must create an Azure Virtual network and then create both a Kafka and Spark cluster on the virtual network. For an example of how to do this using an Azure Resource Manager template, see [https://hditutorialdata.blob.core.windows.net/armtemplates/create-linux-based-kafka-spark-cluster-in-vnet.json](https://hditutorialdata.blob.core.windows.net/armtemplates/create-linux-based-kafka-spark-cluster-in-vnet.json). For an example of using the template with this example, see [Use Apache Spark with Kafka on HDInsight (preview)](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-with-kafka).
 
-## Deploy the Azure resources
-
-This project includes a template that can be used to create these resources on your Azure subscription. To use the template, select the __Deploy to Azure__ button.
-
-<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fazure-samples%2Fhdinsight-spark-scala-kafka-cosmosdb%2Fmaster%2Fresources%2Fcreate-linux-based-kafka-spark-cosmos-db.json" target="_blank">
-    <img src="http://azuredeploy.net/deploybutton.png"/>
-</a>
-
 ## Understand this example
 
 This example uses a Scala application in a Jupyter notebook. The code in the notebook relies on the following pieces of data:
