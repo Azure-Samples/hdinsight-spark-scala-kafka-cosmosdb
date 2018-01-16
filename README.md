@@ -12,6 +12,45 @@ This example requires Kafka and Spark on HDInsight 3.6 in the same Azure Virtual
 
 __NOTE__: Apache Kafka and Spark are available as two different cluster types. HDInsight cluster types are tuned for the performance of a specific technology; in this case, Kafka and Spark. To use both together, you must create an Azure Virtual network and then create both a Kafka and Spark cluster on the virtual network. For an example of how to do this using an Azure Resource Manager template, see [https://hditutorialdata.blob.core.windows.net/armtemplates/create-linux-based-kafka-spark-cluster-in-vnet.json](https://hditutorialdata.blob.core.windows.net/armtemplates/create-linux-based-kafka-spark-cluster-in-vnet.json). For an example of using the template with this example, see [Use Apache Spark with Kafka on HDInsight (preview)](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-with-kafka).
 
+## Deploy Azure resources
+
+To create an environment that can be used to run this example, use the __Deploy to Azure__ button to deploy the following Azure resources:
+
+* A virtual network
+
+* Spark on HDInsight 3.6
+
+* Kafka on HDInsight 3.6
+
+* Azure Cosmos DB SQL API database
+
+When the template loads, you must provide the following information:
+
+* __Base cluster name__: This must be a unique alphanumeric value, and is used to generate the following resource names:
+
+    * Virtual Network: __basename-network__
+    * Spark on HDInsight: __spark-basename__
+
+    * Kafka on HDInsight: __kafka-basename__
+
+    * Azure Storage Account: __basenamestore__
+
+    * Cosmos DB: __basenamecosmosdb__
+
+* __Cluster login name__: This is the name used when logging in to Jupyter notebooks on the Spark cluster.
+
+* __Cluster login password__: The password for the login account.
+
+* __SSH user name__: The SSH user account for the cluster.
+
+* __SSH password__: The SSH user password.
+
+__NOTE__: SSH isn't used by this example, but you must still provide these values.
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fhdinsight-spark-scala-kafka-cosmosdb%2Fmaster%2Fazuredeploy.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+
 ## Understand this example
 
 This example uses a Scala application in a Jupyter notebook. The code in the notebook relies on the following pieces of data:
@@ -31,6 +70,8 @@ This example uses a Scala application in a Jupyter notebook. The code in the not
 * __PreferredRegions__: The preferred Azure regions to use when writing to the database.
 
 __NOTE__: The notebooks contain information and links on how to obtain this information.
+
+__WARNING__: HDInsight is charged hourly. To prevent unnecessary costs, delete the cluster once you are finished with this example.
 
 ## To run this example
 
