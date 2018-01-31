@@ -92,7 +92,7 @@
       }
     },
     {
-      "name": "[parameters('virtualNetworkName')]",
+      "name": "[variables('virtualNetworkName')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[resourceGroup().location]",
       "apiVersion": "[variables('defaultApiVersion')]",
@@ -132,7 +132,7 @@
       "apiVersion": "[variables('clusterApiVersion')]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/',variables('clusterStorageAccountName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]"
       ],
       "tags": { },
       "properties": {
@@ -173,8 +173,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             },
             {
@@ -195,8 +195,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             },
             {
@@ -212,8 +212,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             }
           ]
@@ -227,7 +227,7 @@
       "apiVersion": "[variables('clusterApiVersion')]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/',variables('clusterStorageAccountName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/',variables('virtualNetworkName'))]"
       ],
       "tags": { },
       "properties": {
@@ -268,8 +268,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             },
             {
@@ -285,8 +285,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             }
           ]
@@ -297,7 +297,7 @@
     "outputs": {
         "vnet": {
             "type": "object",
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName')))]"
+            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName')))]"
         },
         "kafkaCluster": {
             "type": "object",
