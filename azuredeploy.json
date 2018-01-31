@@ -2,11 +2,39 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "baseClusterName": {
+      "virtualNetworkAddressSpace": {
+        "type": "string",
+        "defaultValue": "10.0.0.0/16",
+        "metadata": {
+          "description": "The address space for the virtual network."
+        }
+      },
+      "defaultSubnetName": {
+        "type": "string",
+        "defaultValue": "default",
+        "metadata": {
+          "description": "The name of the default subnet in the virtual network."
+        }
+      },
+      "defaultSubnetAddressRange": {
+        "type": "string",
+        "defaultValue": "10.0.0.0/24",
+        "metadata": {
+          "description": "The address space of the default subnet."
+        }
+      },
+      "baseClusterName": {
             "type": "string",
             "metadata": {
                 "description": "The base name used to create resources; spark-basename, kafka-basename, basename-vnet, basenamestore."
             }
+        },
+        "clusterVersion": {
+          "type": "string",
+          "defaultValue": "3.6",
+          "metadata": {
+            "description": "The HDInsight cluster version."
+          }
         },
         "clusterLoginUserName": {
             "type": "string",
@@ -40,14 +68,13 @@
     "clusterApiVersion": "2015-03-01-preview",
     "clusterWorkerNodeCount": "3",
     "disksPerWorkerNode": "2",
-    "clusterVNetName": "[concat(parameters('baseClusterName'),'-network')]",
+    "virtualNetworkName": "[concat(parameters('baseClusterName'),'-network')]",
     "clusterStorageAccountName": "[concat(parameters('baseClusterName'),'store')]",
     "kafkaClusterName": "[concat('kafka-', parameters('baseClusterName'))]",
     "sparkClusterName": "[concat('spark-', parameters('baseClusterName'))]",
     "cosmosDBAccountName": "[concat(parameters('baseClusterName'),'cosmosdb')]",
     "clusterVNetAddressSpace": "10.0.0.0/16",
-    "clusterVNetSubnetName": "default",
-    "clusterVNetSubnetAddressRange": "10.0.0.0/24"
+
   },
   "resources": [
     {
@@ -65,7 +92,7 @@
       }
     },
     {
-      "name": "[variables('clusterVNetName')]",
+      "name": "[parameters('virtualNetworkName')]",
       "type": "Microsoft.Network/virtualNetworks",
       "location": "[resourceGroup().location]",
       "apiVersion": "[variables('defaultApiVersion')]",
@@ -74,14 +101,14 @@
       "properties": {
         "addressSpace": {
           "addressPrefixes": [
-            "[variables('clusterVNetAddressSpace')]"
+            "[parameters('virtualNetworkAddressSpace')]"
           ]
         },
         "subnets": [
           {
-            "name": "[variables('clusterVNetSubnetName')]",
+            "name": "[parameters('defaultSubnetName')]",
             "properties": {
-              "addressPrefix": "[variables('clusterVNetSubnetAddressRange')]"
+              "addressPrefix": "[parameters('defaultSubnetAddressRange')]"
             }
           }
         ]
@@ -105,11 +132,11 @@
       "apiVersion": "[variables('clusterApiVersion')]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/',variables('clusterStorageAccountName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/',variables('clusterVNetName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]"
       ],
       "tags": { },
       "properties": {
-        "clusterVersion": "3.6",
+        "clusterVersion": "[parameters('clusterVersion')]",
         "osType": "Linux",
         "clusterDefinition": {
           "kind": "kafka",
@@ -146,8 +173,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', variables('clusterVNetSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             },
             {
@@ -168,8 +195,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', variables('clusterVNetSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             },
             {
@@ -185,8 +212,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', variables('clusterVNetSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             }
           ]
@@ -200,11 +227,11 @@
       "apiVersion": "[variables('clusterApiVersion')]",
       "dependsOn": [
         "[concat('Microsoft.Storage/storageAccounts/',variables('clusterStorageAccountName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/',variables('clusterVNetName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/',parameters('virtualNetworkName'))]"
       ],
       "tags": { },
       "properties": {
-        "clusterVersion": "3.6",
+        "clusterVersion": "[parameters('clusterVersion')]",
         "osType": "Linux",
         "clusterDefinition": {
           "kind": "Spark",
@@ -241,8 +268,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', variables('clusterVNetSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             },
             {
@@ -258,8 +285,8 @@
                 }
               },
               "virtualNetworkProfile": {
-                "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName'))]",
-                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', variables('clusterVNetName')), '/subnets/', variables('clusterVNetSubnetName'))]"
+                "id": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
+                "subnet": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName')), '/subnets/', parameters('defaultSubnetName'))]"
               }
             }
           ]
@@ -270,7 +297,7 @@
     "outputs": {
         "vnet": {
             "type": "object",
-            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks',variables('clusterVNetName')))]"
+            "value": "[reference(resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName')))]"
         },
         "kafkaCluster": {
             "type": "object",
