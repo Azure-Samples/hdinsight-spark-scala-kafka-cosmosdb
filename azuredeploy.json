@@ -2,6 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+      "cosmosDBAccountName": {
+        "type": "string",
+        "metadata": {
+          "description": "The Cosmos DB account name."
+        }
+      },
       "virtualNetworkAddressSpace": {
         "type": "string",
         "defaultValue": "10.0.0.0/16",
@@ -72,7 +78,6 @@
     "clusterStorageAccountName": "[concat(parameters('baseClusterName'),'store')]",
     "kafkaClusterName": "[concat('kafka-', parameters('baseClusterName'))]",
     "sparkClusterName": "[concat('spark-', parameters('baseClusterName'))]",
-    "cosmosDBAccountName": "[concat(parameters('baseClusterName'),'cosmosdb')]",
     "clusterVNetAddressSpace": "10.0.0.0/16",
 
   },
@@ -81,11 +86,11 @@
       "apiVersion": "2015-04-08",
       "type": "Microsoft.DocumentDB/databaseAccounts",
       "kind": "GlobalDocumentDB",
-      "name": "[variables('cosmosDBAccountName')]",
+      "name": "[parameters('cosmosDBAccountName')]",
       "location": "[resourceGroup().location]",
       "properties": {
         "databaseAccountOfferType": "Standard",
-        "name": "[variables('cosmosDBAccountName')]"
+        "name": "[parameters('cosmosDBAccountName')]"
       },
       "tags": {
         "defaultExperience": "DocumentDB"
@@ -235,6 +240,9 @@
         "osType": "Linux",
         "clusterDefinition": {
           "kind": "Spark",
+          "componentVersion": {
+            "Spark": "2.2"
+          },
           "configurations": {
             "gateway": {
               "restAuthCredential.isEnabled": true,
