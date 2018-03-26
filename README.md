@@ -10,7 +10,11 @@ This is a basic example of using Apache Spark on HDInsight to stream data from K
 
 This example requires Kafka and Spark on HDInsight 3.6 in the same Azure Virtual Network. It also requires an Azure Cosmos DB SQL API database.
 
-__NOTE__: Apache Kafka and Spark are available as two different cluster types. HDInsight cluster types are tuned for the performance of a specific technology; in this case, Kafka and Spark. To use both together, you must create an Azure Virtual network and then create both a Kafka and Spark cluster on the virtual network. For an example of how to do this using an Azure Resource Manager template, see [https://hditutorialdata.blob.core.windows.net/armtemplates/create-linux-based-kafka-spark-cluster-in-vnet.json](https://hditutorialdata.blob.core.windows.net/armtemplates/create-linux-based-kafka-spark-cluster-in-vnet.json). For an example of using the template with this example, see [Use Apache Spark with Kafka on HDInsight (preview)](https://docs.microsoft.com/azure/hdinsight/hdinsight-apache-spark-with-kafka).
+__NOTE__: Apache Kafka and Spark are available as two different cluster types. HDInsight cluster types are tuned for the performance of a specific technology; in this case, Kafka and Spark. To use both together, you must create an Azure Virtual network and then create both a Kafka and Spark cluster on the virtual network. 
+
+The `azuredeploy.json` template file in this repo creates Kafka and Spark clusters in HDInsight, inside an Azure Virtual Network. It also creates an Azure Cosmos DB account.
+
+__IMPORTANT__: For a more detailed walkthrough of using this project, see the [Use Spark Structured Streaming with Kafka and Azure Cosmos DB](https://docs.microsoft.com/en-us/azure/hdinsight/apache-kafka-spark-structured-streaming-cosmosdb) document.
 
 ## Deploy Azure resources
 
@@ -26,6 +30,8 @@ To create an environment that can be used to run this example, use the __Deploy 
 
 When the template loads, you must provide the following information:
 
+* __Cosmos DB account name__: The name of the Cosmos DB account that is created.
+
 * __Base cluster name__: This must be a unique alphanumeric value, and is used to generate the following resource names:
 
     * Virtual Network: __basename-network__
@@ -34,8 +40,6 @@ When the template loads, you must provide the following information:
     * Kafka on HDInsight: __kafka-basename__
 
     * Azure Storage Account: __basenamestore__
-
-    * Cosmos DB: __basenamecosmosdb__
 
 * __Cluster login name__: This is the name used when logging in to Jupyter notebooks on the Spark cluster.
 
@@ -46,6 +50,8 @@ When the template loads, you must provide the following information:
 * __SSH password__: The SSH user password.
 
 __NOTE__: SSH isn't used by this example, but you must still provide these values.
+
+__NOTE__: This template creates an Azure Virtual Network with an IP address space of 10.0.0.0\16.
 
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure-Samples%2Fhdinsight-spark-scala-kafka-cosmosdb%2Fmaster%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
@@ -90,3 +96,4 @@ To use the example Jupyter notebooks, you must upload them to the Jupyter Notebo
 4. Once the file has uploaded, select the __Stream-taxi-data-to-kafka.ipynb__ entry to open the notebook. To load data into Kafka, follow the instructions in the notebook.
 
 5. Repeat steps 1-3 to upload the `Stream-data-from-Kafka-to-Cosmos-DB.ipynb` document to Kafka. Once the file has uploaded, select the entry to open the notebook. Follow the instructions in the notebook to read the data from Kafka and store it into Cosmos DB.
+
