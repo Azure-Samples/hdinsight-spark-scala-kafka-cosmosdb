@@ -1,4 +1,4 @@
-# How to clone this repo and contribut
+# How to clone this repo and contribute
 
 This doc simply helps contributors to clone this repo and upload changes through a pull request.
 
@@ -33,7 +33,7 @@ cd /c/git/Azure-Samples/hdinsight-spark-scala-kafka-cosmosdb
 git pull https://github.com/Azure-Samples/hdinsight-spark-scala-kafka-cosmosdb.git master
 ```
 
-2. Edit the files locally on your local directory. 
+2. Edit the files locally on your box. 
 
 3. Once you are done editing, add the files you want to keep from your staging area, and commit that change.
 
