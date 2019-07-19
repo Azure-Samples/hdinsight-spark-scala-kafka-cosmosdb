@@ -1,7 +1,9 @@
 ---
-services: hdinsight, cosmosdb
-platforms: scala
-author: blackmist
+languages: []
+page_type: sample
+products:
+- azure
+- azure-hdinsight
 ---
 
 # Use Apache Kafka with Apache Spark on hdinsight
@@ -96,4 +98,3 @@ To use the example Jupyter notebooks, you must upload them to the Jupyter Notebo
 4. Once the file has uploaded, select the __Stream-taxi-data-to-kafka.ipynb__ entry to open the notebook. To load data into Kafka, follow the instructions in the notebook.
 
 5. Repeat steps 1-3 to upload the `Stream-data-from-Kafka-to-Cosmos-DB.ipynb` document to Kafka. Once the file has uploaded, select the entry to open the notebook. Follow the instructions in the notebook to read the data from Kafka and store it into Cosmos DB.
-
