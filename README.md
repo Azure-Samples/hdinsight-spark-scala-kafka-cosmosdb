@@ -1,9 +1,12 @@
 ---
-languages: []
+languages:
+- python
 page_type: sample
+description: "This is a basic example of using Apache Spark on HDInsight to stream data from Kafka to Azure Cosmos DB."
 products:
 - azure
 - azure-hdinsight
+- azure-cosmos-db
 ---
 
 # Use Apache Kafka with Apache Spark on hdinsight
