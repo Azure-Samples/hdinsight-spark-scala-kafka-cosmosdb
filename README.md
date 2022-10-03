@@ -13,7 +13,7 @@ products:
 
 This is a basic example of using Apache Spark on HDInsight to stream data from Kafka to Azure Cosmos DB. This example uses Spark Structured Streaming and the [Azure Cosmos DB Spark Connector](https://github.com/Azure/azure-cosmosdb-spark). 
 
-This example requires Kafka and Spark on HDInsight 3.6 in the same Azure Virtual Network. It also requires an Azure Cosmos DB SQL API database.
+This example requires Kafka and Spark on HDInsight 4.0 in the same Azure Virtual Network. It also requires an Azure Cosmos DB SQL API database.
 
 __NOTE__: Apache Kafka and Spark are available as two different cluster types. HDInsight cluster types are tuned for the performance of a specific technology; in this case, Kafka and Spark. To use both together, you must create an Azure Virtual network and then create both a Kafka and Spark cluster on the virtual network. 
 
@@ -27,9 +27,9 @@ To create an environment that can be used to run this example, use the __Deploy 
 
 * A virtual network
 
-* Spark on HDInsight 3.6
+* Spark on HDInsight 4.0
 
-* Kafka on HDInsight 3.6
+* Kafka on HDInsight 4.0
 
 * Azure Cosmos DB SQL API database
 
